@@ -17,7 +17,7 @@ var NewItemDOM = (function() {
 
 var ItemListDOM = (function() {
     function append(item) {
-        $("#listItem").append($("<li>").text(item.desc));
+        $("<li>").text(item.desc).appendTo($("#listItem"));
     }
 
     return {
@@ -26,17 +26,17 @@ var ItemListDOM = (function() {
 })();
 
 var TodoController = (function() {
-    var  _newItemDOM, _itemListDOM;
+    var  newItemDOM, itemListDOM;
 
     function onAddNewItem(item) {
-        _itemListDOM.append(item);
+        itemListDOM.append(item);
     }
 
     function init(NewItemDOM, ItemListDOM) {
-        _newItemDOM = NewItemDOM;
-        _itemListDOM = ItemListDOM;
+        newItemDOM = NewItemDOM;
+        itemListDOM = ItemListDOM;
 
-        _newItemDOM.addNewItemListener(onAddNewItem);
+        newItemDOM.addNewItemListener(onAddNewItem);
     }
 
     return {
