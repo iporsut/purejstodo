@@ -1,6 +1,12 @@
 "use strict";
 
-var TodoController = (function() {
+var TodoController = createTodoController();
+var NewItemDOM = createNewItemDOM();
+var ItemListDOM = createItemListDOM();
+var NewItemDOMJQuery = createNewItemDOMJQuery();
+var ItemListDOMJQuery = createItemListDOMJQuery();
+
+function createTodoController() {
     var  newItemDOM, itemListDOM;
 
     function onAddNewItem(item) {
@@ -18,9 +24,9 @@ var TodoController = (function() {
         init : init,
         onAddNewItem: onAddNewItem,
     };
-})();
+}
 
-var NewItemDOM = (function() {
+function createNewItemDOM() {
     function addNewItemListener(callback) {
         document.querySelector("#newItemForm").addEventListener('submit', function(e) {
             var desc = document.querySelector("#newItem").value;
@@ -34,9 +40,9 @@ var NewItemDOM = (function() {
     return {
         addNewItemListener: addNewItemListener,
     };
-})();
+}
 
-var ItemListDOM = (function() {
+function createItemListDOM() {
     function append(item) {
         var l = document.createElement("li");
         l.innerHTML = item.desc;
@@ -46,9 +52,9 @@ var ItemListDOM = (function() {
     return {
         append: append,
     };
-})();
+}
 
-var NewItemDOMJQuery = (function() {
+function createNewItemDOMJQuery() {
     function addNewItemListener(callback) {
         $("#newItemForm").on('submit', function() {
             var desc = $("#newItem").val();
@@ -61,9 +67,9 @@ var NewItemDOMJQuery = (function() {
     return {
         addNewItemListener: addNewItemListener,
     };
-})();
+}
 
-var ItemListDOMJQuery = (function() {
+function createItemListDOMJQuery() {
     function append(item) {
         $("<li>").text(item.desc).appendTo($("#listItem"));
     }
@@ -71,5 +77,4 @@ var ItemListDOMJQuery = (function() {
     return {
         append: append,
     };
-})();
-
+}
