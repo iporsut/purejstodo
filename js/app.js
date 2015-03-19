@@ -2,9 +2,11 @@
 
 var NewItemDOM = (function() {
     function addNewItemListener(callback) {
-        $("#add").on('click', function() {
+        $("#newItemForm").on('submit', function() {
             var desc = $("#newItem").val();
             callback({"desc" : desc});
+            $("#newItem").val("");
+            return false;
         });
     }
 
