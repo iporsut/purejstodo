@@ -30,7 +30,7 @@ var NewItemDOM = (function() {
         document.querySelector("#newItemForm").addEventListener('submit', function(e) {
             var desc = document.querySelector("#newItem").value;
             callback({desc : desc});
-            document.querySelector("#newItemForm").value = '';
+            document.querySelector("#newItem").value = '';
             e.preventDefault();
             return false;
         });
