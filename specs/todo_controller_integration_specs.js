@@ -1,7 +1,13 @@
 "use strict";
 describe("TodoController", function() {
     beforeEach(function() {
-        $ = setupContext('<form id="newItemForm">Item <input id="newItem" /><button id="add">Add</button></form><h1>Todo List</h1><ul id="listItem"></ul>');
+        $ = setupContext('' +
+                '<form id="newItemForm">Item <input id="newItem" />' +
+                    '<button id="add">Add</button>' +
+                '</form>' + 
+                '<h1>Todo List</h1>' +
+                '<ul id="listItem"></ul>'
+                );
     });
 
     it("add item update ItemListDOM when onAddNewItem called", function() {
