@@ -14,7 +14,7 @@ describe("TodoController", function() {
         TodoController.init(NewItemDOM, ItemListDOM);
 
 
-        TodoController.onAddNewItem({"desc": "sample"});
-        expect(ItemListDOM.append).toHaveBeenCalledWith({"desc": "sample"});
+        TodoController.onAddNewItem({desc: "sample"});
+        expect(ItemListDOM.append).toHaveBeenCalledWith({desc: "sample"});
     });
 });

@@ -4,7 +4,7 @@ var NewItemDOM = (function() {
     function addNewItemListener(callback) {
         $("#newItemForm").on('submit', function() {
             var desc = $("#newItem").val();
-            callback({"desc" : desc});
+            callback({desc : desc});
             $("#newItem").val("");
             return false;
         });
