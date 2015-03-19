@@ -1,24 +1,45 @@
 "use strict";
 describe("TodoController", function() {
-    beforeEach(function() {
-        document.querySelector = setupContext('' +
-                '<form id="newItemForm">Item <input id="newItem" />' +
+    describe("Native querySelector", function() {
+        beforeEach(function() {
+            document.querySelector = setupContext('' +
+                    '<form id="newItemForm">Item <input id="newItem" />' +
                     '<button id="add">Add</button>' +
-                '</form>' + 
-                '<h1>Todo List</h1>' +
-                '<ul id="listItem"></ul>'
-                );
-                
+                    '</form>' + 
+                    '<h1>Todo List</h1>' +
+                    '<ul id="listItem"></ul>'
+                    );
+        });
+
+        it("add item update ItemListDOM when onAddNewItem called", function() {
+            TodoController.init(NewItemDOM, ItemListDOM);
+
+            document.querySelector("#newItem").value = "ทดสอบ";
+            document.querySelector("#newItemForm").dispatchEvent(new Event('submit'));
+
+            expect(document.querySelector("#listItem li").innerHTML).toEqual('ทดสอบ');
+        });
     });
 
-    it("add item update ItemListDOM when onAddNewItem called", function() {
+    describe("jQuery", function() {
+        beforeEach(function() {
+            $ = setupContextJQuery('' +
+                    '<form id="newItemForm">Item <input id="newItem" />' +
+                    '<button id="add">Add</button>' +
+                    '</form>' + 
+                    '<h1>Todo List</h1>' +
+                    '<ul id="listItem"></ul>'
+                    );
+        });
 
-        TodoController.init(NewItemDOM, ItemListDOM);
+        it("add item update ItemListDOM when onAddNewItem called", function() {
+            TodoController.init(NewItemDOMJQuery, ItemListDOMJQuery);
 
-        document.querySelector("#newItem").value = "ทดสอบ";
-        document.querySelector("#newItemForm").dispatchEvent(new Event('submit'));
+            $("#newItem").val("ทดสอบ");
+            $("#newItemForm").trigger('submit');
 
-        expect(document.querySelector("#listItem li").innerHTML).toEqual('ทดสอบ');
+            expect($("#listItem li").text()).toEqual('ทดสอบ');
+        });
     });
 });
 
