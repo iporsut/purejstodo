@@ -1,6 +1,6 @@
 "use strict";
 
-var NewItemDOM = (function() {
+var NewItemDOMJQuery = (function() {
     function addNewItemListener(callback) {
         $("#newItemForm").on('submit', function() {
             var desc = $("#newItem").val();
@@ -15,7 +15,7 @@ var NewItemDOM = (function() {
     };
 })();
 
-var ItemListDOM = (function() {
+var ItemListDOMJQuery = (function() {
     function append(item) {
         $("<li>").text(item.desc).appendTo($("#listItem"));
     }
@@ -25,6 +25,33 @@ var ItemListDOM = (function() {
     };
 })();
 
+var NewItemDOM = (function() {
+    function addNewItemListener(callback) {
+        document.querySelector("#newItemForm").addEventListener('submit', function(e) {
+            var desc = document.querySelector("#newItem").value;
+            callback({desc : desc});
+            document.querySelector("#newItemForm").value = '';
+            e.preventDefault();
+            return false;
+        });
+    }
+
+    return {
+        addNewItemListener: addNewItemListener,
+    };
+})();
+
+var ItemListDOM = (function() {
+    function append(item) {
+        var l = document.createElement("li");
+        l.innerHTML = item.desc;
+        document.querySelector('#listItem').appendChild(l);
+    }
+
+    return {
+        append: append,
+    };
+})();
 var TodoController = (function() {
     var  newItemDOM, itemListDOM;
 

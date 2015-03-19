@@ -1,28 +1,39 @@
 "use strict";
 describe("TodoController", function() {
     beforeEach(function() {
-        $ = setupContext('' +
+        document.querySelector = setupContext('' +
                 '<form id="newItemForm">Item <input id="newItem" />' +
                     '<button id="add">Add</button>' +
                 '</form>' + 
                 '<h1>Todo List</h1>' +
                 '<ul id="listItem"></ul>'
                 );
+                
     });
 
     it("add item update ItemListDOM when onAddNewItem called", function() {
 
         TodoController.init(NewItemDOM, ItemListDOM);
 
-        $("#newItem").val('ทดสอบ');
+        document.querySelector("#newItem").value = "ทดสอบ";
+        document.querySelector("#newItemForm").dispatchEvent(new Event('submit'));
 
-        $("#newItemForm").trigger("submit");
-
-        expect($("#listItem li").text()).toEqual('ทดสอบ');
+        expect(document.querySelector("#listItem li").innerHTML).toEqual('ทดสอบ');
     });
 });
 
 function setupContext(htmlFixture) {
+    var realDocument = document;
+
+    var body = realDocument.createElement("body");
+    body.innerHTML = htmlFixture;
+
+    return function(selector) {
+        return body.querySelector(selector);
+    };
+}
+
+function setupContextJQuery(htmlFixture) {
     var body = document.createElement("body");
     jQuery(body).html(htmlFixture);
 
